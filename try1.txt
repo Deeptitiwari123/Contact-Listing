@@ -1,0 +1,65 @@
+var express = require('express');
+var router = express.Router();
+var mysql=require('mysql');
+
+/* GET users listing. */
+router.get('/', function(req, res, next) {
+
+  res.send('My app is running');
+});
+
+
+var connection = mysql.createConnection({
+   host     : 'localhost',
+   user     : 'root',
+   password : '',
+   database : 'demo'
+ });
+ var app = express();
+ connection.connect(function(err){
+ if(!err) {
+     console.log("Database is connected ... \n\n");  
+ } else {
+     console.log("Error connecting database ... \n\n");  
+ }
+});
+
+router.get('/deepti', function(req, res, next) {
+	var response = {sucess: 'My name is deepti'}
+    connection.query("SELECT * FROM user_registration", function (err, result, fields) {
+	 if (err) throw err;
+	    console.log(result);
+	    response=result;
+	    res.send(response);
+	    console.log("Get finish Post start");
+	  });
+
+});
+
+//router.post('/post', function(req, res, next) {
+	//var response = {sucess: 'My name is deepti_post'}
+//app.post('users/post',function(req,res){
+	 //console.log(req.body);
+	 //console.log("I am postujhbnbnbnbnbnbnbnbnbnbnbnbnbniu");
+
+
+	// connection.insert(req.body,function(err,doc){
+		//res.json(doc);
+	//})
+	  //});
+
+router.get('/post', function(req, res, next) {
+
+  res.send('My name is post function');
+});
+
+
+ 	
+
+   connection.end();
+});
+
+});
+
+
+module.exports = router;
